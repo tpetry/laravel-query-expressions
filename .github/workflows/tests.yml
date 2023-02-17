@@ -1,0 +1,107 @@
+name: Testing
+
+on: [push, pull_request]
+
+jobs:
+  maria10_3:
+    name: MariaDB 10.3
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.3
+  maria10_4:
+    name: MariaDB 10.4
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.4
+  maria10_5:
+    name: MariaDB 10.5
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.5
+  maria10_6:
+    name: MariaDB 10.6
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.6
+  maria10_7:
+    name: MariaDB 10.7
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.7
+  maria10_8:
+    name: MariaDB 10.8
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.8
+  maria10_9:
+    name: MariaDB 10.9
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.9
+  maria10_10:
+    name: MariaDB 10.10
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: 10.10
+
+  mysql5_7:
+    name: MySQL 5.7
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: 5.7
+  mysql8_0:
+    name: MySQL 8.0
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: 8.0
+
+  pgsql10:
+    name: PostgreSQL 10
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 10
+  pgsql11:
+    name: PostgreSQL 11
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 11
+  pgsql12:
+    name: PostgreSQL 12
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 12
+  pgsql13:
+    name: PostgreSQL 13
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 13
+  pgsql14:
+    name: PostgreSQL 14
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 14
+  pgsql15:
+    name: PostgreSQL 15
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 15
+
+  sqlite:
+    name: SQLite
+    uses: ./.github/workflows/tests-sqlite.yml
+
+  sqlsrv2017:
+    name: Microsoft SQL Server 2017
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2017
+  sqlsrv2019:
+    name: Microsoft SQL Server 2019
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2019
+  sqlsrv2022:
+    name: Microsoft SQL Server 2022
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2022
