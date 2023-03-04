@@ -20,7 +20,7 @@ DB::table('table')
 
 // You can use:
 DB::table('table')
-    ->select(new Alias(new Coalesce(['user', 'admin']), 'count'));
+    ->select(new Alias(new Coalesce(['user', 'admin']), 'value'));
 ```
 
 ## Installation
