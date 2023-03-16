@@ -25,6 +25,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: testing
         ports:
           - 3306:3306
 
@@ -56,5 +57,5 @@ jobs:
         run: vendor/bin/pest
         env:
           DB_CONNECTION: mysql
-          DB_DATABASE: mysql
+          DB_DATABASE: testing
           DB_USERNAME: root
