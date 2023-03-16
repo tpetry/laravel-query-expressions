@@ -1,7 +1,7 @@
 # Laravel Query Expressions to replace DB::raw() calls
 
-![Supported PHP Versions](https://img.shields.io/badge/PHP-8.1%2B-blue)
-![Supported Laravel Versions](https://img.shields.io/badge/Laravel-10%2B-blue)
+![Supported PHP Versions](https://img.shields.io/badge/PHP-8.1%2B-blue?style=flat-square)
+![Supported Laravel Versions](https://img.shields.io/badge/Laravel-10%2B-blue?style=flat-square)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tpetry/laravel-query-expressions.svg?style=flat-square)](https://packagist.org/packages/tpetry/laravel-query-expressions)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/tpetry/laravel-query-expressions/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/tpetry/laravel-query-expressions/actions/workflows/tests.yml?query=workflow%3Atests+branch%3Amain)
 [![GitHub Static Analysis Action Status](https://img.shields.io/github/actions/workflow/status/tpetry/laravel-query-expressions/static-analysis.yml?branch=main&label=static%20analysis&style=flat-square)](https://github.com/tpetry/laravel-query-expressions/actions/workflows/static-analysis.yml?query=workflow%3Atests+branch%3Amain)
