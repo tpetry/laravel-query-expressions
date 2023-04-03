@@ -124,7 +124,7 @@ $quota->update([
 Product::select([
     'id',
     'name',
-    new Alias(new Multiply(new Subtract('price', 'discount'), Number(0.2)), 'vat')
+    new Alias(new Multiply(new Subtract('price', 'discount'), new Number(0.2)), 'vat')
 ])->get();
 ```
 
