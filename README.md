@@ -170,7 +170,7 @@ new LessThan(string|Expression $value1, string|Expression $value2);
 new LessThanOrEqual(string|Expression $value1, string|Expression $value2);
 new NotDistinctFrom(string|Expression $value1, string|Expression $value2);
 new NotEqual(string|Expression $value1, string|Expression $value2);
-new StrListContains(string|Expression $value1, string|Expression $value2);
+new StrListContains(string|Expression $value1, string|Expression $value2, bool $strict = false);
 
 new CondAnd(string|Expression $value1, string|Expression $value2);
 new CondNot(string|Expression $value);
