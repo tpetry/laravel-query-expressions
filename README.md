@@ -154,7 +154,7 @@ User::where(new BitAnd('acl', 0x8000), 0x8000)
 ```php
 use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Operator\Comparison\{
-    Between, DistinctFrom, Equal, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual, NotDistinctFrom, NotEqual, FindInSet
+    Between, DistinctFrom, Equal, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual, NotDistinctFrom, NotEqual, StrListContains
 };
 use Tpetry\QueryExpressions\Operator\Logical\{
     CondAnd, CondNot, CondOr, CondXor
@@ -170,7 +170,7 @@ new LessThan(string|Expression $value1, string|Expression $value2);
 new LessThanOrEqual(string|Expression $value1, string|Expression $value2);
 new NotDistinctFrom(string|Expression $value1, string|Expression $value2);
 new NotEqual(string|Expression $value1, string|Expression $value2);
-new FindInSet(string|Expression $value1, string|Expression $value2);
+new StrListContains(string|Expression $value1, string|Expression $value2);
 
 new CondAnd(string|Expression $value1, string|Expression $value2);
 new CondNot(string|Expression $value);
