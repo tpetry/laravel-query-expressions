@@ -186,7 +186,7 @@ new CondXor(string|Expression $value1, string|Expression $value2);
 
 ### Functions
 
-### Aggregates
+#### Aggregates
 
 ```php
 use Illuminate\Contracts\Database\Query\Expression;
@@ -228,7 +228,7 @@ Movie::select([
     ->get();
 ```
 
-### Conditional
+#### Conditional
 
 ```php
 use Tpetry\QueryExpressions\Function\Conditional\{
@@ -246,6 +246,21 @@ BlogArticle::select([
 ])
 ->get();
 ```
+
+#### String
+```php
+use Tpetry\QueryExpressions\Function\String\Uuid4;
+
+new Uuid4();
+
+Schema::table('users', function (Blueprint $table): void {
+    $table->uuid()->default(new Uuid4())->unique();
+});
+```
+
+> **Warning**
+> The `Uuid4` expression is not available for all database versions.
+> With PostgreSQL you need at least v13 and with MariaDB at least v10.10.
 
 ## Changelog
 

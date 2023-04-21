@@ -60,3 +60,78 @@ expect()->extend('toBeSqlsrv', function (string $expected): Expectation {
 
     return $this;
 });
+
+function skipOnMariaBefore(string $version)
+{
+    /** @var \Illuminate\Database\Connection $connection */
+    $connection = DB::connection();
+
+    if ($connection->getDriverName() !== 'mysql') {
+        return;
+    }
+
+    $actual = $connection->scalar('select version()');
+    if (str_contains($actual, 'MariaDB') && version_compare($actual, $version, '<')) {
+        test()->markTestSkipped("The MariaDB version must be at least {$version}.");
+    }
+}
+
+function skipOnMysqlBefore(string $version): void
+{
+    /** @var \Illuminate\Database\Connection $connection */
+    $connection = DB::connection();
+
+    if ($connection->getDriverName() !== 'mysql') {
+        return;
+    }
+
+    $actual = $connection->scalar('select version()');
+    if (! str_contains($actual, 'MariaDB') && version_compare($actual, $version, '<')) {
+        test()->markTestSkipped("The MariaDB version must be at least {$version}.");
+    }
+}
+
+function skipOnPgsqlBefore(string $version): void
+{
+    /** @var \Illuminate\Database\Connection $connection */
+    $connection = DB::connection();
+
+    if ($connection->getDriverName() !== 'pgsql') {
+        return;
+    }
+
+    $actual = $connection->scalar('show server_version');
+    if (version_compare($actual, $version, '<')) {
+        test()->markTestSkipped("The PostgreSQL version must be at least {$version}.");
+    }
+}
+
+function skipOnSqliteBefore(string $version): void
+{
+    /** @var \Illuminate\Database\Connection $connection */
+    $connection = DB::connection();
+
+    if ($connection->getDriverName() !== 'sqlite') {
+        return;
+    }
+
+    $actual = $connection->scalar('select sqlite_version()');
+    if (version_compare($actual, $version, '<')) {
+        test()->markTestSkipped("The SQLite version must be at least {$version}.");
+    }
+}
+
+function skipOnSqlsrvBefore(string $version): void
+{
+    /** @var \Illuminate\Database\Connection $connection */
+    $connection = DB::connection();
+
+    if ($connection->getDriverName() !== 'sqlsrv') {
+        return;
+    }
+
+    $actual = $connection->scalar("select serverproperty('productversion')");
+    if (version_compare($actual, $version, '<')) {
+        test()->markTestSkipped("The SQL Server version must be at least {$version}.");
+    }
+}

@@ -42,7 +42,7 @@ jobs:
     name: MariaDB 10.10
     uses: ./.github/workflows/tests-maria.yml
     with:
-      version: 10.10
+      version: "10.10"
 
   mysql5_7:
     name: MySQL 5.7
