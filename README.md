@@ -262,6 +262,33 @@ Schema::table('users', function (Blueprint $table): void {
 > The `Uuid4` expression is not available for all database versions.
 > With PostgreSQL you need at least v13 and with MariaDB at least v10.10.
 
+#### Time
+```php
+use Tpetry\QueryExpressions\Function\Time\Now;
+use Tpetry\QueryExpressions\Function\Time\TimestampBin;
+
+new Now();
+new TimestampBin(string|Expression $expression, DateInterval $step, ?DateTimeInterface $origin = null);
+
+BlogVisit::select([
+    'url',
+    new TimestampBin('created_at', DateInterval::createFromDateString('5 minutes')),
+    new Count('*'),
+])->groupBy(
+    'url',
+    new TimestampBin('created_at', DateInterval::createFromDateString('5 minutes'))
+)->get();
+// | url       | timestamp           | count |
+// |-----------|---------------------|-------|
+// | /example1 | 2023-05-16 09:50:00 | 2     |
+// | /example1 | 2023-05-16 09:55:00 | 1     |
+// | /example1 | 2023-05-16 09:50:00 | 1     |
+
+Schema::table('users', function (Blueprint $table): void {
+    $table->uuid()->default(new Uuid4())->unique();
+});
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
