@@ -255,8 +255,11 @@ BlogArticle::select([
 
 #### String
 ```php
-use Tpetry\QueryExpressions\Function\String\Uuid4;
+use Tpetry\QueryExpressions\Function\String\{
+    Concat, Uuid4
+};
 
+new Concat(array $expressions);
 new Uuid4();
 
 Schema::table('users', function (Blueprint $table): void {
