@@ -31,10 +31,10 @@ And you can also create new powerful queries:
 ```php
 // Aggregate multiple statistics with one query for dashboards:
 Movie::select([
-    new CountFilter(new Equal('released', new Number(2021))),
-    new CountFilter(new Equal('released', new Number(2022))),
-    new CountFilter(new Equal('genre_id', new Number(12))),
-    new CountFilter(new Equal('genre_id', new Number(35))),
+    new CountFilter(new Equal('released', new Value(2021))),
+    new CountFilter(new Equal('released', new Value(2022))),
+    new CountFilter(new Equal('genre', new Value('Drama'))),
+    new CountFilter(new Equal('genre', new Value('Comedy'))),
 ])->where('streamingservice', 'netflix');
 ```
 
@@ -65,17 +65,18 @@ Whenever an expression class needs a `string|Expression` parameter, you can pass
 
 As stated before, an expression is always a column name.
 But if you want to e.g. do an equality check, you may want to compare something to a specific value.
-That's where you should use the `Number` class.
+That's where you should use the `Value` class.
+Its values will always be automatically escaped within the query.
 
 ```php
-use Tpetry\QueryExpressions\Value\Number;
+use Tpetry\QueryExpressions\Value\Value;
 
-new Number(44);
-new Number(3.1415);
+new Value(42);
+new Value("Robert'); DROP TABLE students;--");
 ```
 
 > **Note**
-> The `Number` class in isolation is not that usefull.
+> The `Value` class in isolation is not that usefull.
 > But it will be used more in the next examples.
 
 #### Alias
@@ -83,7 +84,7 @@ new Number(3.1415);
 ```php
 use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Language\Alias;
-use Tpetry\QueryExpressions\Value\Number;
+use Tpetry\QueryExpressions\Value\Value;
 
 new Alias(string|Expression $expression, string $name)
 
@@ -106,7 +107,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Operator\Arithmetic\{
     Add, Divide, Modulo, Multiply, Power, Subtract,
 };
-use Tpetry\QueryExpressions\Operator\Value\Number;
+use Tpetry\QueryExpressions\Operator\Value\Value;
 
 new Add(string|Expression $value1, string|Expression $value2);
 new Divide(string|Expression $value1, string|Expression $value2);
@@ -117,14 +118,14 @@ new Subtract(string|Expression $value1, string|Expression $value2);
 
 // UPDATE user_quotas SET credits = credits - 15 WHERE id = 1985
 $quota->update([
-    'credits' => new Subtract('credits', new Number(15)),
+    'credits' => new Subtract('credits', new Value(15)),
 ]);
 
 // SELECT id, name, (price - discount) * 0.2 AS vat FROM products
 Product::select([
     'id',
     'name',
-    new Alias(new Multiply(new Subtract('price', 'discount'), new Number(0.2)), 'vat')
+    new Alias(new Multiply(new Subtract('price', 'discount'), new Value(0.2)), 'vat')
 ])->get();
 ```
 
@@ -135,7 +136,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Operator\Bitwise\{
     BitAnd, BitNot, BitOr, BitXor, ShiftLeft, ShiftRight,
 };
-use Tpetry\QueryExpressions\Operator\Value\Number;
+use Tpetry\QueryExpressions\Operator\Value\Value;
 
 new BitAnd(string|Expression $value1, string|Expression $value2);
 new BitNot(string|Expression $value);
@@ -145,7 +146,7 @@ new ShiftLeft(string|Expression $value, string|Expression $times);
 new ShiftRight(string|Expression $value, string|Expression $times);
 
 // SELECT * FROM users WHERE (acl & 0x8000) = 0x8000
-User::where(new BitAnd('acl', 0x8000), 0x8000)
+User::where(new BitAnd('acl', new Value(0x8000)), 0x8000)
     ->get();
 ```
 
@@ -159,7 +160,6 @@ use Tpetry\QueryExpressions\Operator\Comparison\{
 use Tpetry\QueryExpressions\Operator\Logical\{
     CondAnd, CondNot, CondOr, CondXor
 };
-use Tpetry\QueryExpressions\Operator\Value\Number;
 
 new Between(string|Expression $value, string|Expression $min, string|Expression $max);
 new DistinctFrom(string|Expression $value1, string|Expression $value2);
@@ -193,7 +193,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Function\Aggregate\{
     Avg, Count, CountFilter, Max, Min, Sum, SumFilter,
 };
-use Tpetry\QueryExpressions\Operator\Value\Number;
+use Tpetry\QueryExpressions\Operator\Value\Value;
 
 new Avg(string|Expression $value);
 new Count(string|Expression $value);
@@ -214,15 +214,15 @@ BlogVisit::select([
 // SELECT
 //   COUNT(*) FILTER (WHERE (released = 2021)) AS released_2021,
 //   COUNT(*) FILTER (WHERE (released = 2022)) AS released_20212,
-//   COUNT(*) FILTER (WHERE (genre_id = 12)) AS genre_12,
-//   COUNT(*) FILTER (WHERE (genre_id = 35)) AS genre_35
+//   COUNT(*) FILTER (WHERE (genre = 'Drama')) AS genre_drama,
+//   COUNT(*) FILTER (WHERE (genre = 'Comedy')) AS genre_comedy
 // FROM movies
 // WHERE streamingservice = 'netflix'
 Movie::select([
-    new Alias(new CountFilter(new Equal('released', new Number(2021))), 'released_2021'),
-    new Alias(new CountFilter(new Equal('released', new Number(2022))), 'released_2022'),
-    new Alias(new CountFilter(new Equal('genre_id', new Number(12))), 'genre_12'),
-    new Alias(new CountFilter(new Equal('genre_id', new Number(35))), 'genre_35'),
+    new Alias(new CountFilter(new Equal('released', new Value(2021))), 'released_2021'),
+    new Alias(new CountFilter(new Equal('released', new Value(2022))), 'released_2022'),
+    new Alias(new CountFilter(new Equal('genre', new Value('Drama'))), 'genre_drama'),
+    new Alias(new CountFilter(new Equal('genre', new Value('Comedy'))), 'genre_comedy'),
 ])
     ->where('streamingservice', 'netflix')
     ->get();

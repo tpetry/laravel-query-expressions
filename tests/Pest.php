@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Query\Grammars\MySqlGrammar;
-use Illuminate\Database\Query\Grammars\PostgresGrammar;
-use Illuminate\Database\Query\Grammars\SQLiteGrammar;
-use Illuminate\Database\Query\Grammars\SqlServerGrammar;
 use Illuminate\Support\Facades\DB;
 use Pest\Expectation;
 use PHPUnit\Framework\Assert;
@@ -38,25 +34,33 @@ expect()->extend('toBeExecutable', function (array $columns = [], array $options
 });
 
 expect()->extend('toBeMysql', function (string $expected): Expectation {
-    Assert::assertSame($expected, $this->value->getValue(new MySqlGrammar()));
+    if (DB::connection()->getDriverName() === 'mysql') {
+        Assert::assertSame($expected, $this->value->getValue(DB::connection()->getQueryGrammar()));
+    }
 
     return $this;
 });
 
 expect()->extend('toBePgsql', function (string $expected): Expectation {
-    Assert::assertSame($expected, $this->value->getValue(new PostgresGrammar()));
+    if (DB::connection()->getDriverName() === 'pgsql') {
+        Assert::assertSame($expected, $this->value->getValue(DB::connection()->getQueryGrammar()));
+    }
 
     return $this;
 });
 
 expect()->extend('toBeSqlite', function (string $expected): Expectation {
-    Assert::assertSame($expected, $this->value->getValue(new SQLiteGrammar()));
+    if (DB::connection()->getDriverName() === 'sqlite') {
+        Assert::assertSame($expected, $this->value->getValue(DB::connection()->getQueryGrammar()));
+    }
 
     return $this;
 });
 
 expect()->extend('toBeSqlsrv', function (string $expected): Expectation {
-    Assert::assertSame($expected, $this->value->getValue(new SqlServerGrammar()));
+    if (DB::connection()->getDriverName() === 'sqlsrv') {
+        Assert::assertSame($expected, $this->value->getValue(DB::connection()->getQueryGrammar()));
+    }
 
     return $this;
 });
