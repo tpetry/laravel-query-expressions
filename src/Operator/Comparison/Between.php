@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Tpetry\QueryExpressions\Operator\Comparison;
 
+use Illuminate\Contracts\Database\Query\ConditionExpression;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Grammar;
 use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 
-class Between implements Expression
+class Between implements ConditionExpression
 {
     use StringizeExpression;
 

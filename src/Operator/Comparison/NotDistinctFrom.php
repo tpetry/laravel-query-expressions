@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tpetry\QueryExpressions\Operator\Comparison;
 
+use Illuminate\Contracts\Database\Query\ConditionExpression;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Grammar;
 use Tpetry\QueryExpressions\Concerns\IdentifiesDriver;
 use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 
-class NotDistinctFrom implements Expression
+class NotDistinctFrom implements ConditionExpression
 {
     use IdentifiesDriver;
     use StringizeExpression;

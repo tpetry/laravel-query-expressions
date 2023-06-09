@@ -179,10 +179,11 @@ new CondXor(string|Expression $value1, string|Expression $value2);
 // Examples in Aggregates::countFilter()
 ```
 
-> **Warning**
-> These objects can currently not be used with Laravel's `where()`.
-> They are only for logical operations within aggregates or as selected columns.
-> I am working on fixing that ;)
+You can use these expressions directly with Laravel's `where()` method:
+
+```php
+BlogVistis::where(new Equal('url', new Value('/exam\'ple1')))->get()
+```
 
 ### Functions
 
