@@ -15,8 +15,16 @@ it('can alias a column')
 
 it('can alias an expression')
     ->expect(new Alias(new Expression(1), 'num'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable()
     ->toBeMysql('1 as `num`')
     ->toBePgsql('1 as "num"')
     ->toBeSqlite('1 as "num"')
     ->toBeSqlsrv('1 as [num]');
+
+it('can alias dotted names')
+    ->expect(new Alias(new Expression(1), 'dotted.dotted'))
+    ->toBeExecutable()
+    ->toBeMysql('1 as `dotted.dotted`')
+    ->toBePgsql('1 as "dotted.dotted"')
+    ->toBeSqlite('1 as "dotted.dotted"')
+    ->toBeSqlsrv('1 as [dotted.dotted]');
