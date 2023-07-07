@@ -292,10 +292,6 @@ BlogVisit::select([
 // | /example1 | 2023-05-16 09:50:00 | 2     |
 // | /example1 | 2023-05-16 09:55:00 | 1     |
 // | /example1 | 2023-05-16 09:50:00 | 1     |
-
-Schema::table('users', function (Blueprint $table): void {
-    $table->uuid()->default(new Uuid4())->unique();
-});
 ```
 
 ## Changelog
