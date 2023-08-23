@@ -14,7 +14,7 @@ it('can lowercase a column')
     ->toBeSqlsrv('lower([val])');
 
 it('can lowercase an expression')
-    ->expect(new Lower(new Expression('foo')))
+    ->expect(new Lower(new Expression('\'foo\'')))
     ->toBeExecutable()
     ->toBeMysql('lower(\'foo\')')
     ->toBePgsql('lower(\'foo\')')
