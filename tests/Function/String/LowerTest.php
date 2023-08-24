@@ -7,7 +7,7 @@ use Tpetry\QueryExpressions\Function\String\Lower;
 
 it('can lowercase a column')
     ->expect(new Lower('val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(['val varchar(255)'])
     ->toBeMysql('lower(`val`)')
     ->toBePgsql('lower("val")')
     ->toBeSqlite('lower("val")')
