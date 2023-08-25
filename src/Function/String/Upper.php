@@ -27,8 +27,8 @@ class Upper implements Expression
             'pgsql' => "{$this->stringize($grammar, $this->expression)} collate {$this->collation}",
             'sqlsrv' => "{$this->stringize($grammar, $this->expression)} collate {$this->collation}",
             'sqlite' => "{$this->stringize($grammar, $this->expression)} collate {$this->collation}",
-        } : $this->expression;
+        } : $this->stringize($grammar, $this->expression);
 
-        return "lower({$expression})";
+        return "upper({$expression})";
     }
 }
