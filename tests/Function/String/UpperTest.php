@@ -22,17 +22,17 @@ it('can uppercase an expression')
     ->toBeSqlsrv('upper(\'foo\')');
 
 it('can change collation of column before changing it to uppercase')
-    ->expect(new Upper('val', 'utf8mb4_general_ci'))
+    ->expect(new Upper('val', 'utf8'))
     ->toBeExecutable(['val varchar(255)'])
-    ->toBeMysql('upper(convert `val` using utf8mb4_general_ci)')
-    ->toBePgsql('upper("val" collate utf8mb4_general_ci)')
-    ->toBeSqlite('upper("val" collate utf8mb4_general_ci)')
-    ->toBeSqlsrv('upper([val] collate utf8mb4_general_ci)');
+    ->toBeMysql('upper(convert `val` using utf8)')
+    ->toBePgsql('upper("val" collate utf8)')
+    ->toBeSqlite('upper("val" collate utf8)')
+    ->toBeSqlsrv('upper([val] collate utf8)');
 
 it('can change collation of expression before changing it to uppercase')
-    ->expect(new Upper(new Expression('\'foo\''), 'utf8mb4_general_ci'))
+    ->expect(new Upper(new Expression('\'foo\''), 'utf8'))
     ->toBeExecutable()
-    ->toBeMysql('upper(convert \'foo\' using utf8mb4_general_ci)')
-    ->toBePgsql('upper(\'foo\' collate utf8mb4_general_ci)')
-    ->toBeSqlite('upper(\'foo\' collate utf8mb4_general_ci)')
-    ->toBeSqlsrv('upper(\'foo\' collate utf8mb4_general_ci)');
+    ->toBeMysql('upper(convert \'foo\' using utf8)')
+    ->toBePgsql('upper(\'foo\' collate utf8)')
+    ->toBeSqlite('upper(\'foo\' collate utf8)')
+    ->toBeSqlsrv('upper(\'foo\' collate utf8)');
