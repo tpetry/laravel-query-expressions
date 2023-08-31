@@ -202,7 +202,7 @@ use Tpetry\QueryExpressions\Function\Aggregate\{
 use Tpetry\QueryExpressions\Operator\Value\Value;
 
 new Avg(string|Expression $value);
-new Count(string|Expression $value);
+new Count(string|Expression $value, bool $distinct = false);
 new CountFilter(string|Expression $filter);
 new Max(string|Expression $value);
 new Min(string|Expression $value);
