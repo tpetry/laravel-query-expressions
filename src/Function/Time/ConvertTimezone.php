@@ -24,9 +24,9 @@ class ConvertTimezone implements Expression
     public function getValue(Grammar $grammar)
     {
         return match ($this->identify($grammar)) {
-            'mysql' => "convert_tz({$this->expression},{$this->stringize($grammar, $this->startTimezone)},{$this->stringize($grammar, $this->targetTimezone)})",
-            'pgsql', 'sqlsrv' => "(({$this->expression} at time zone {$this->stringize($grammar, $this->startTimezone)}) at time zone {$this->stringize($grammar, $this->targetTimezone)})",
-            'sqlite' => "datetime({$this->expression},{$this->stringize($grammar, $this->startTimezone)},{$this->stringize($grammar, $this->targetTimezone)})",
+            'mysql' => "convert_tz({$this->stringize($grammar, $this->expression)},{$this->stringize($grammar, $this->startTimezone)},{$this->stringize($grammar, $this->targetTimezone)})",
+            'pgsql', 'sqlsrv' => "(({$this->stringize($grammar, $this->expression)} at time zone {$this->stringize($grammar, $this->startTimezone)}) at time zone {$this->stringize($grammar, $this->targetTimezone)})",
+            'sqlite' => "datetime({$this->stringize($grammar, $this->expression)},{$this->stringize($grammar, $this->startTimezone)},{$this->stringize($grammar, $this->targetTimezone)})",
         };
     }
 }
