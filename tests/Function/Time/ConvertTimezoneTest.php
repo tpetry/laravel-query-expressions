@@ -14,6 +14,14 @@ it('can convert timezone of datetime expression with timezone expressions')
     ->toBeSqlsrv('((\'2023-01-01 00:00:00\' at time zone \'UTC\') at time zone \'Europe/Brussels\')')
     ->toBeSqlite('datetime(\'2023-01-01 00:00:00\',\'UTC\',\'Europe/Brussels\')');
 
+it('can convert timezone of datetime expression with timezone offset expressions')
+    ->expect(new ConvertTimezone(new Expression('\'2023-01-01 00:00:00\''), new Expression('\'+00:00\''), new Expression('\'+02:00\'')))
+    ->toBeExecutable()
+    ->toBeMysql('convert_tz(\'2023-01-01 00:00:00\',\'+00:00\',\'+02:00\')')
+    ->toBePgsql('((\'2023-01-01 00:00:00\' at time zone \'+00:00\') at time zone \'+02:00\')')
+    ->toBeSqlsrv('((\'2023-01-01 00:00:00\' at time zone \'+00:00\') at time zone \'+02:00\')')
+    ->toBeSqlite('datetime(\'2023-01-01 00:00:00\',\'+00:00\',\'+02:00\')');
+
 it('can convert timezone of datetime column with timezone columns')
     ->expect(new ConvertTimezone('val', 'start_timezone', 'target_timezone'))
     ->toBeExecutable(['val datetime', 'start_timezone varchar(255)', 'target_timezone varchar(255)'])
