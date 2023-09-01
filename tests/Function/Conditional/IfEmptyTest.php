@@ -13,7 +13,7 @@ it('can use other column if main column is empty')
     ->toBeSqlite('ifnull(nullif("val1",\'\'),"val2")')
     ->toBeSqlsrv('ifnull(nullif([val1],\'\'),[val2])');
 
-    it('can use expression if column is empty')
+it('can use other expression if main expression is empty')
     ->expect(new IfEmpty(new Expression('\'foo\''), new Expression('\'bar\'')))
     ->toBeExecutable()
     ->toBeMysql('ifnull(nullif(\'foo\',\'\'),\'bar\')')
