@@ -256,10 +256,12 @@ BlogArticle::select([
 #### String
 ```php
 use Tpetry\QueryExpressions\Function\String\{
-    Concat, Uuid4
+    Concat, Lower, Upper, Uuid4
 };
 
 new Concat(array $expressions);
+new Lower(string|Expression $expression);
+new Upper(string|Expression $expression);
 new Uuid4();
 
 Schema::table('users', function (Blueprint $table): void {
