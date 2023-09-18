@@ -16,7 +16,7 @@ abstract class ManyArgumentsExpression implements Expression
     use StringizeExpression;
 
     /**
-     * @param  non-empty-array<int, \Illuminate\Contracts\Database\Query\Expression>  $expressions
+     * @param  non-empty-array<int, string|\Illuminate\Contracts\Database\Query\Expression>  $expressions
      */
     public function __construct(
         private readonly array $expressions,
