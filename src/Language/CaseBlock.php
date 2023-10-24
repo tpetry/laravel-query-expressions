@@ -26,7 +26,8 @@ class CaseBlock extends ManyArgumentsExpression implements ConditionExpression {
     public function getValue(Grammar $grammar)
     {
         $conditions = implode(' ', $this->getExpressions($grammar));
+        $else = $this->stringize($grammar, $this->else);
 
-        return "(case {$conditions} end)";
+        return "(case {$conditions} {$else} end)";
     }
 }
