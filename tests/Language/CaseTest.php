@@ -64,4 +64,4 @@ it('uses a caseBlock with multiple condition and value aliased')
     ->toBeMysql('(case when (1 = 2) then 5 when (2 = 2) then 6 else `val` end) as `name`')
     ->toBePgsql('(case when (1 = 2) then 5 when (2 = 2) then 6 else "val" end) as "name"')
     ->toBeSqlite('(case when (1 = 2) then 5 when (2 = 2) then 6 else "val" end) as "name"')
-    ->toBeSqlsrv('(case when (1 = 2) then 5 when (2 = 2) then 6 else [val] end) as "name"');
+    ->toBeSqlsrv('(case when (1 = 2) then 5 when (2 = 2) then 6 else [val] end) as [name]');
