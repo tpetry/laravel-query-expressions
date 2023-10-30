@@ -3,11 +3,15 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Operator\Comparison\LessThanOrEqual;
 
 it('can compare two columns by less than or equal check')
     ->expect(new LessThanOrEqual('val1', 'val2'))
-    ->toBeExecutable(['val1 int', 'val2 int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val1` <= `val2`)')
@@ -27,7 +31,9 @@ it('can compare two expressions by less than or equal check')
 
 it('can compare an expression and a column by less than or equal check')
     ->expect(new LessThanOrEqual('val', new Expression(0)))
-    ->toBeExecutable(['val int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val` <= 0)')
@@ -37,7 +43,9 @@ it('can compare an expression and a column by less than or equal check')
 
 it('can compare a column and an expression by less than or equal check')
     ->expect(new LessThanOrEqual(new Expression(0), 'val'))
-    ->toBeExecutable(['val int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(0 <= `val`)')

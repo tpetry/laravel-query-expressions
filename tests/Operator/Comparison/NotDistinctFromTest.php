@@ -3,11 +3,15 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Operator\Comparison\NotDistinctFrom;
 
 it('can compare two columns by not distinct check')
     ->expect(new NotDistinctFrom('val1', 'val2'))
-    ->toBeExecutable(['val1 int', 'val2 int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val1` <=> `val2`)')
@@ -27,7 +31,9 @@ it('can compare two expressions by not distinct check')
 
 it('can compare an expression and a column by not distinct check')
     ->expect(new NotDistinctFrom('val', new Expression(0)))
-    ->toBeExecutable(['val int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val` <=> 0)')
@@ -37,7 +43,9 @@ it('can compare an expression and a column by not distinct check')
 
 it('can compare a column and an expression by not distinct check')
     ->expect(new NotDistinctFrom(new Expression(0), 'val'))
-    ->toBeExecutable(['val int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(0 <=> `val`)')

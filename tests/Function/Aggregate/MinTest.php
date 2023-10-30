@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Aggregate\Min;
 
 it('can aggregate a column by MIN')
     ->expect(new Min('val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('min(`val`)')
     ->toBePgsql('min("val")')
     ->toBeSqlite('min("val")')

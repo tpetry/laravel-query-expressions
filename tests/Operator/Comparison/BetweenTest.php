@@ -3,11 +3,16 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Operator\Comparison\Between;
 
 it('can compare a column by between check with two columns')
     ->expect(new Between('val', 'min', 'max'))
-    ->toBeExecutable(['val int', 'min int', 'max int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+        $table->integer('min');
+        $table->integer('max');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val` between `min` and `max`)')
@@ -17,7 +22,10 @@ it('can compare a column by between check with two columns')
 
 it('can compare a column by between check with a column and expression')
     ->expect(new Between('val', 'min', new Expression(99)))
-    ->toBeExecutable(['val int', 'min int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+        $table->integer('min');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val` between `min` and 99)')
@@ -27,7 +35,10 @@ it('can compare a column by between check with a column and expression')
 
 it('can compare a column by between check with an expression and column')
     ->expect(new Between('val', new Expression(1), 'max'))
-    ->toBeExecutable(['val int', 'max int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+        $table->integer('max');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(`val` between 1 and `max`)')
@@ -37,7 +48,10 @@ it('can compare a column by between check with an expression and column')
 
 it('can compare an expression by between check with two columns')
     ->expect(new Between(new Expression(1), 'min', 'max'))
-    ->toBeExecutable(['min int', 'max int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('min');
+        $table->integer('max');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(1 between `min` and `max`)')
@@ -47,7 +61,9 @@ it('can compare an expression by between check with two columns')
 
 it('can compare an expression by between check with an expression and column')
     ->expect(new Between(new Expression(1), new Expression(0), 'max'))
-    ->toBeExecutable(['max int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('max');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(1 between 0 and `max`)')
@@ -57,7 +73,9 @@ it('can compare an expression by between check with an expression and column')
 
 it('can compare an expression by between check with a column and expression')
     ->expect(new Between(new Expression(1), 'min', new Expression(99)))
-    ->toBeExecutable(['min int'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('min');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('(1 between `min` and 99)')

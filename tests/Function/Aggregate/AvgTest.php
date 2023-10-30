@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Aggregate\Avg;
 
 it('can aggregate a column by AVG')
     ->expect(new Avg('val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('avg(`val`)')
     ->toBePgsql('avg("val")')
     ->toBeSqlite('avg("val")')

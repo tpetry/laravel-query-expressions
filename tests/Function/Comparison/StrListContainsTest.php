@@ -3,11 +3,15 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Comparison\StrListContains;
 
 it('can check for existence of a column within a column string list')
     ->expect(new StrListContains('haystack', 'needle'))
-    ->toBeExecutable(['haystack varchar(255)', 'needle varchar(255)'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->string('haystack');
+        $table->string('needle');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql('FIND_IN_SET(`needle`, `haystack`) > 0')
@@ -27,7 +31,9 @@ it('can check for existence of an expression within an expression string list')
 
 it('can check for existence of a column within an expression string list')
     ->expect(new StrListContains(new Expression("'a,b,c'"), 'needle'))
-    ->toBeExecutable(['needle varchar(255)'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->string('needle');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql("FIND_IN_SET(`needle`, 'a,b,c') > 0")
@@ -37,7 +43,9 @@ it('can check for existence of a column within an expression string list')
 
 it('can check for existence of an expression within a column string list')
     ->expect(new StrListContains('haystack', new Expression("'a'")))
-    ->toBeExecutable(['haystack varchar(255)'], options: [
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->string('haystack');
+    }, options: [
         'sqlsrv' => ['position' => 'where'],
     ])
     ->toBeMysql("FIND_IN_SET('a', `haystack`) > 0")

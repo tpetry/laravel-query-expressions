@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Aggregate\Sum;
 
 it('can aggregate a column by SUM')
     ->expect(new Sum('val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('sum(`val`)')
     ->toBePgsql('sum("val")')
     ->toBeSqlite('sum("val")')

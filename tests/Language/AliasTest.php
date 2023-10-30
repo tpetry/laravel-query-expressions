@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Language\Alias;
 
 it('can alias a column')
     ->expect(new Alias('val', 'value'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('`val` as `value`')
     ->toBePgsql('"val" as "value"')
     ->toBeSqlite('"val" as "value"')
