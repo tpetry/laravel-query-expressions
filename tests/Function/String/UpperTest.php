@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\String\Upper;
 
 it('can uppercase a column')
     ->expect(new Upper('val'))
-    ->toBeExecutable(['val varchar(255)'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->string('val');
+    })
     ->toBeMysql('(upper(`val`))')
     ->toBePgsql('upper("val")')
     ->toBeSqlite('(upper("val"))')

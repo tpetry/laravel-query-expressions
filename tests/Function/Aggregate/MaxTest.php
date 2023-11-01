@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Aggregate\Max;
 
 it('can aggregate a column by MAX')
     ->expect(new Max('val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('max(`val`)')
     ->toBePgsql('max("val")')
     ->toBeSqlite('max("val")')

@@ -3,11 +3,16 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\Conditional\Greatest;
 
 it('can combine multiple columns')
     ->expect(new Greatest(['val1', 'val2', 'val3']))
-    ->toBeExecutable(['val1 int', 'val2 int', 'val3 int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+        $table->integer('val3');
+    })
     ->toBeMysql('greatest(`val1`, `val2`, `val3`)')
     ->toBePgsql('greatest("val1", "val2", "val3")')
     ->toBeSqlite('max("val1", "val2", "val3")')
@@ -23,7 +28,10 @@ it('can combine multiple expressions')
 
 it('can combine multiple columns and expressions')
     ->expect(new Greatest(['val1', 'val2', new Expression(3)]))
-    ->toBeExecutable(['val1 int', 'val2 int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+    })
     ->toBeMysql('greatest(`val1`, `val2`, 3)')
     ->toBePgsql('greatest("val1", "val2", 3)')
     ->toBeSqlite('max("val1", "val2", 3)')

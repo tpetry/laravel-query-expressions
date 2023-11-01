@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Function\String\Lower;
 
 it('can lowercase a column')
     ->expect(new Lower('val'))
-    ->toBeExecutable(['val varchar(255)'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->string('val');
+    })
     ->toBeMysql('(lower(`val`))')
     ->toBePgsql('lower("val")')
     ->toBeSqlite('(lower("val"))')

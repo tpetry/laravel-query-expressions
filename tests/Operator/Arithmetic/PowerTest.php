@@ -3,11 +3,15 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Tpetry\QueryExpressions\Operator\Arithmetic\Power;
 
 it('can power two columns')
     ->expect(new Power('val1', 'val2'))
-    ->toBeExecutable(['val1 int', 'val2 int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+    })
     ->toBeMysql('power(`val1`, `val2`)')
     ->toBePgsql('("val1" ^ "val2")')
     ->toBeSqlite('power("val1", "val2")')
@@ -23,7 +27,9 @@ it('can power two expressions')
 
 it('can power an expression and a column')
     ->expect(new Power('val', new Expression(0)))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('power(`val`, 0)')
     ->toBePgsql('("val" ^ 0)')
     ->toBeSqlite('power("val", 0)')
@@ -31,7 +37,9 @@ it('can power an expression and a column')
 
 it('can power a column and an expression')
     ->expect(new Power(new Expression(0), 'val'))
-    ->toBeExecutable(['val int'])
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val');
+    })
     ->toBeMysql('power(0, `val`)')
     ->toBePgsql('(0 ^ "val")')
     ->toBeSqlite('power(0, "val")')

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Pest\Expectation;
 use PHPUnit\Framework\Assert;
 use Tpetry\QueryExpressions\Tests\TestCase;
@@ -11,15 +12,14 @@ uses(
     TestCase::class,
 )->in(__DIR__);
 
-expect()->extend('toBeExecutable', function (array $columns = [], array $options = []): Expectation {
+expect()->extend('toBeExecutable', function (Closure $migration = null, array $options = []): Expectation {
     /** @var \Illuminate\Database\Connection $connection */
     $connection = DB::connection();
 
     $table = null;
-    if (filled($columns)) {
+    if (filled($migration)) {
         $table = 'example_'.mt_rand();
-        $columns = implode(',', $columns);
-        $connection->unprepared("CREATE TABLE {$table} ({$columns})");
+        Schema::create($table, $migration(...));
     }
 
     $position = $options[$connection->getDriverName()]['position'] ?? 'select';
