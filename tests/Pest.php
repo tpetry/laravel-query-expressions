@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Pest\Expectation;
@@ -13,21 +12,14 @@ uses(
     TestCase::class,
 )->in(__DIR__);
 
-expect()->extend('toBeExecutable', function (
-    Closure $callback = null,
-    array $options = [],
-): Expectation {
+expect()->extend('toBeExecutable', function (Closure $migration = null, array $options = []): Expectation {
     /** @var \Illuminate\Database\Connection $connection */
     $connection = DB::connection();
 
     $table = null;
-
-    if (filled($callback)) {
+    if (filled($migration)) {
         $table = 'example_'.mt_rand();
-
-        Schema::create($table, function (Blueprint $table) use ($callback) {
-            $callback($table);
-        });
+        Schema::create($table, $migration(...));
     }
 
     $position = $options[$connection->getDriverName()]['position'] ?? 'select';
