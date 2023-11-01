@@ -12,7 +12,7 @@ it('uses a caseBlock with one condition blocks')
         new CaseBlock(when: [
             new CaseCondition(result: new Number(5), condition: new Equal(new Number(1), new Number(2))),
         ],
-        else: new Number(2)
+            else: new Number(2)
         )
     )
     ->toBeExecutable()
@@ -25,7 +25,7 @@ it('uses a caseBlock with multiple condition blocks')
     ->expect(
         new CaseBlock(when: [
             new CaseCondition(result: new Number(5), condition: new Equal(new Number(1), new Number(2))),
-            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2)))
+            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2))),
         ],
             else: new Number(2)
         )
@@ -40,7 +40,7 @@ it('uses a caseBlock with multiple condition and value')
     ->expect(
         new CaseBlock(when: [
             new CaseCondition(result: new Number(5), condition: new Equal(new Number(1), new Number(2))),
-            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2)))
+            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2))),
         ],
             else: 'val'
         )
@@ -55,7 +55,7 @@ it('uses a caseBlock with multiple condition and value aliased')
     ->expect(
         new \Tpetry\QueryExpressions\Language\Alias(new CaseBlock(when: [
             new CaseCondition(result: new Number(5), condition: new Equal(new Number(1), new Number(2))),
-            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2)))
+            new CaseCondition(result: new Number(6), condition: new Equal(new Number(2), new Number(2))),
         ],
             else: 'val'
         ), 'name')

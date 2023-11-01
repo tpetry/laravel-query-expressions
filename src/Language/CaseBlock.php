@@ -11,10 +11,11 @@ use Tpetry\QueryExpressions\Concerns\IdentifiesDriver;
 use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 use Tpetry\QueryExpressions\Function\Conditional\ManyArgumentsExpression;
 
-class CaseBlock extends ManyArgumentsExpression implements ConditionExpression {
-
+class CaseBlock extends ManyArgumentsExpression implements ConditionExpression
+{
     use IdentifiesDriver;
     use StringizeExpression;
+
     /**
      * @param  non-empty-array<int, CaseCondition>  $when
      */
