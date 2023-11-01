@@ -19,16 +19,20 @@ class CaseBlock extends ManyArgumentsExpression implements ConditionExpression
     /**
      * @param  non-empty-array<int, CaseCondition>  $when
      */
-    public function __construct(readonly array $when, private readonly string|Expression $else)
-    {
+    public function __construct(
+        array $when,
+        private readonly string|Expression|null $else = null,
+    ) {
         parent::__construct($when);
     }
 
     public function getValue(Grammar $grammar)
     {
         $conditions = implode(' ', $this->getExpressions($grammar));
-        $else = $this->stringize($grammar, $this->else);
 
-        return "(case {$conditions} else {$else} end)";
+        return match ($this->else) {
+            null => "(case {$conditions} end)",
+            default => "(case {$conditions} else {$this->stringize($grammar, $this->else)} end)",
+        };
     }
 }
