@@ -11,11 +11,11 @@ use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 
 class Abs implements Expression
 {
-    use StringizeExpression;
     use IdentifiesDriver;
+    use StringizeExpression;
 
     public function __construct(
-        private readonly string|Expression $expression
+        private readonly string|Expression $expression,
     ) {
     }
 
