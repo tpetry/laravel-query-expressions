@@ -253,6 +253,15 @@ BlogArticle::select([
 ->get();
 ```
 
+#### Math
+```php
+use Tpetry\QueryExpressions\Function\Math\{
+    Abs,
+};
+
+new Abs(string|Expression $expression);
+```
+
 #### String
 ```php
 use Tpetry\QueryExpressions\Function\String\{
