@@ -9,7 +9,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Grammar;
 use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 
-class CaseCondition implements Expression
+class CaseRule implements Expression
 {
     use StringizeExpression;
 
@@ -19,7 +19,7 @@ class CaseCondition implements Expression
     ) {
     }
 
-    public function getValue(Grammar $grammar)
+    public function getValue(Grammar $grammar): string
     {
         $condition = $this->stringize($grammar, $this->condition);
         $result = $this->stringize($grammar, $this->result);

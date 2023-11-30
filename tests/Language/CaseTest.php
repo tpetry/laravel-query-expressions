@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
-use Tpetry\QueryExpressions\Language\CaseBlock;
-use Tpetry\QueryExpressions\Language\CaseCondition;
+use Tpetry\QueryExpressions\Language\CaseGroup;
+use Tpetry\QueryExpressions\Language\CaseRule;
 use Tpetry\QueryExpressions\Tests\ConditionExpression;
 
 it('can create create a case-expression with a single branch')
     ->expect(
-        new CaseBlock([
-            new CaseCondition(new Expression(2), new ConditionExpression('1 = 1')),
+        new CaseGroup([
+            new CaseRule(new Expression(2), new ConditionExpression('1 = 1')),
         ])
     )
     ->toBeExecutable()
@@ -20,9 +20,9 @@ it('can create create a case-expression with a single branch')
     ->toBeSqlsrv('(case when 1 = 1 then 2 end)');
 
 it('can create create a case-expression with multiple branches')
-    ->expect(new CaseBlock([
-        new CaseCondition(new Expression(2), new ConditionExpression('1 = 1')),
-        new CaseCondition('val', new ConditionExpression('2 = 2')),
+    ->expect(new CaseGroup([
+        new CaseRule(new Expression(2), new ConditionExpression('1 = 1')),
+        new CaseRule('val', new ConditionExpression('2 = 2')),
     ]))
     ->toBeExecutable(['val int'])
     ->toBeMysql('(case when 1 = 1 then 2 when 2 = 2 then `val` end)')
@@ -31,10 +31,10 @@ it('can create create a case-expression with multiple branches')
     ->toBeSqlsrv('(case when 1 = 1 then 2 when 2 = 2 then [val] end)');
 
 it('can create create a case-expression with multiple branches and expression default')
-    ->expect(new CaseBlock(
+    ->expect(new CaseGroup(
         [
-            new CaseCondition(new Expression(2), new ConditionExpression('1 = 1')),
-            new CaseCondition('val', new ConditionExpression('2 = 2')),
+            new CaseRule(new Expression(2), new ConditionExpression('1 = 1')),
+            new CaseRule('val', new ConditionExpression('2 = 2')),
         ],
         new Expression('4'),
     ))
@@ -45,10 +45,10 @@ it('can create create a case-expression with multiple branches and expression de
     ->toBeSqlsrv('(case when 1 = 1 then 2 when 2 = 2 then [val] else 4 end)');
 
 it('can create create a case-expression with multiple branches and column default')
-    ->expect(new CaseBlock(
+    ->expect(new CaseGroup(
         [
-            new CaseCondition(new Expression(2), new ConditionExpression('1 = 1')),
-            new CaseCondition('val', new ConditionExpression('2 = 2')),
+            new CaseRule(new Expression(2), new ConditionExpression('1 = 1')),
+            new CaseRule('val', new ConditionExpression('2 = 2')),
         ],
         'val',
     ))
