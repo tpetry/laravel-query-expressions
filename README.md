@@ -98,6 +98,37 @@ User::select([
 > The `Alias` class in isolation is not that usefull because Eloquent can already do this.
 > But it will be used more in the next examples.
 
+#### Case-When
+
+```php
+use Tpetry\QueryExpressions\Language\{
+    CaseGroup, CaseRule,
+};
+
+new CaseGroup(CaseRule[] $when, string|Expression|null $else = null)
+
+// ALTER TABLE users ADD COLUMN "status" varchar(255) NOT NULL GENERATED ALWAYS AS (
+//   CASE
+//     WHEN ("reward_points" > 500000) THEN 'gold'
+//     WHEN ("reward_points" > 100000) THEN 'silver'
+//     WHEN ("reward_points" > 50000) THEN 'bronze'
+//     ELSE 'none'
+//   END
+// ) STORED
+Schema::table('users', function (Blueprint $table) {
+    $statusByRewardPoints = new CaseGroup(
+        when: [
+            new CaseRule(new Value('gold'), new GreaterThan('reward_points', new Value(500_000))),
+            new CaseRule(new Value('silver'), new GreaterThan('reward_points', new Value(100_000))),
+            new CaseRule(new Value('bronze'), new GreaterThan('reward_points', new Value(50_000))),
+        ],
+        else: new Value('none'),
+    );
+
+    $table->string('status')->storedAs($statusByRewardPoints);
+});
+```
+
 ### Operators
 
 #### Arithmetic Operators
