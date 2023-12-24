@@ -12,7 +12,7 @@ uses(
     TestCase::class,
 )->in(__DIR__);
 
-expect()->extend('toBeExecutable', function (Closure $migration = null, array $options = []): Expectation {
+expect()->extend('toBeExecutable', function (?Closure $migration = null, array $options = []): Expectation {
     /** @var \Illuminate\Database\Connection $connection */
     $connection = DB::connection();
 
