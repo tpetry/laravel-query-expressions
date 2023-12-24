@@ -23,16 +23,16 @@
         "illuminate/support": "^10.0"
     },
     "require-dev": {
+        "larastan/larastan": "^2.7.0",
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^6.0",
-        "nunomaduro/larastan": "^2.0.1",
+        "nunomaduro/collision": "^7.0.0",
         "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
+        "pestphp/pest": "^2.28.1",
+        "pestphp/pest-plugin-laravel": "^2.2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.5.3",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
