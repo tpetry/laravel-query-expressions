@@ -43,17 +43,37 @@ jobs:
     uses: ./.github/workflows/tests-maria.yml
     with:
       version: "10.10"
+  maria11_0:
+    name: MariaDB 11.0
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: "11.0"
+  maria11_1:
+    name: MariaDB 11.1
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: "11.1"
+  maria11_2:
+    name: MariaDB 11.2
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: "11.2"
 
   mysql5_7:
     name: MySQL 5.7
     uses: ./.github/workflows/tests-mysql.yml
     with:
-      version: 5.7
+      version: "5.7"
   mysql8_0:
     name: MySQL 8.0
     uses: ./.github/workflows/tests-mysql.yml
     with:
-      version: 8.0
+      version: "8.0"
+  mysql8_1:
+    name: MySQL 8.1
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: "8.1"
 
   pgsql10:
     name: PostgreSQL 10
@@ -85,6 +105,11 @@ jobs:
     uses: ./.github/workflows/tests-pgsql.yml
     with:
       version: 15
+  pgsql16:
+    name: PostgreSQL 16
+    uses: ./.github/workflows/tests-pgsql.yml
+    with:
+      version: 16
 
   sqlite:
     name: SQLite

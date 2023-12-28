@@ -21,11 +21,12 @@ jobs:
 
     services:
       database:
-        image: mysql:${{ inputs.version }}
+        image: container-registry.oracle.com/mysql/community-server:${{ inputs.version }}
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: testing
+          MYSQL_USER: testing
+          MYSQL_PASSWORD: testing
         ports:
           - 3306:3306
 
@@ -58,4 +59,5 @@ jobs:
         env:
           DB_CONNECTION: mysql
           DB_DATABASE: testing
-          DB_USERNAME: root
+          DB_USERNAME: testing
+          DB_PASSWORD: testing
