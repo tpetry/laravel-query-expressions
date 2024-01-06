@@ -340,6 +340,39 @@ Schema::table('users', function (Blueprint $table): void {
 });
 ```
 
+#### Date Format
+
+Use [PHP's date format](https://www.php.net/manual/en/datetime.format.php#refsect1-datetime.format-parameters) syntax to format a date column.
+
+> **Warning**
+> The following format characters are not supported: `N S L X B I O P T Z z x u v e p c r`
+
+> **Note**
+  When using Sqlite, characters that produces a textual result (for example: `D` -> `Sun`,`F` -> `January`, `l` -> `Sunday`, `M` -> `Jan`), [Carbon](https://carbon.nesbot.com/docs/#api-localization) default localization will be used to build the SQL query.
+
+```php
+use Tpetry\QueryExpressions\Function\Date\DateFormat;
+use Tpetry\QueryExpressions\Language\Alias;
+
+// MySQL:
+//  SELECT url, DATE_FORMAT(created_at, '%Y-%m-%d') AS date, [....]
+// PostgreSQL:
+//  SELECT url, TO_CHAR(created_at, 'YYYY-MM-DD') AS date, [....]
+BlogVisit::select([
+    'url',
+    new Alias(new DateFormat('created_at', 'Y-m-d'), 'date'),
+    new Count('*'),
+])->groupBy(
+    'url',
+    new DateFormat('created_at', 'Y-m-d')
+)->get();
+// | url       | date       | count |
+// |-----------|------------|-------|
+// | /example1 | 2023-05-16 | 2     |
+// | /example1 | 2023-05-17 | 1     |
+// | /example1 | 2023-05-18 | 1     |
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
