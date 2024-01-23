@@ -340,6 +340,72 @@ Schema::table('users', function (Blueprint $table): void {
 });
 ```
 
+#### Date Format
+
+Use [PHP's date format patterns](https://www.php.net/manual/en/datetime.format.php#refsect1-datetime.format-parameters) to format a date column.
+
+```php
+use Tpetry\QueryExpressions\Function\Date\DateFormat;
+use Tpetry\QueryExpressions\Language\Alias;
+
+// MySQL:
+//  SELECT url, DATE_FORMAT(created_at, '%Y-%m-%d') AS date, [....]
+// PostgreSQL:
+//  SELECT url, TO_CHAR(created_at, 'YYYY-MM-DD') AS date, [....]
+// SQLite:
+//  SELECT url, STRFTIME('%Y-%m-%d', created_at) AS date, [....]
+// SQL Server:
+//  SELECT url, FORMAT(created_at, 'yyyy-MM-dd') AS date, [....]
+BlogVisit::select([
+    'url',
+    new Alias(new DateFormat('created_at', 'Y-m-d'), 'date'),
+    new Count('*'),
+])->groupBy(
+    'url',
+    new DateFormat('created_at', 'Y-m-d')
+)->get();
+// | url       | date       | count |
+// |-----------|------------|-------|
+// | /example1 | 2023-05-16 | 2     |
+// | /example1 | 2023-05-17 | 1     |
+// | /example1 | 2023-05-18 | 1     |
+```
+
+<details>
+<summary>Supported Formats:</summary>
+
+<table><thead><tr><th></th><th>Format</th><th><code>2021-01-01 09:00:00</code></th><th>Description</th></tr></thead><tbody>
+<tr><td rowspan='5'>Day</td><td><code>d</code></td><td><code>01</code></td><td>Day of the month, 2 digits with leading zeros (01 to 31)</td></tr>
+<tr><td><code>D</code></td><td><code>Fri</code></td><td>A textual representation of a day, three letters (Mon through Sun)</td></tr>
+<tr><td><code>j</code></td><td><code>1</code></td><td>Day of the month without leading zeros (1 to 31)</td></tr>
+<tr><td><code>l</code></td><td><code>Friday</code></td><td>A full textual representation of the day of the week (Sunday through Saturday)</td></tr>
+<tr><td><code>w</code></td><td><code>5</code></td><td>Numeric representation of the day of the week (0 for Sunday through 6 for Saturday)</td></tr>
+<tr><td rowspan='1'>Week</td><td><code>W</code></td><td><code>53</code></td><td>ISO 8601 week number of year, weeks starting on Monday (Example: 42 - the 42nd week in the year)</td></tr>
+<tr><td rowspan='5'>Month</td><td><code>F</code></td><td><code>January</code></td><td>A full textual representation of a month, such as January or March (January through December)</td></tr>
+<tr><td><code>m</code></td><td><code>01</code></td><td>Numeric representation of a month, with leading zeros (01 through 12)</td></tr>
+<tr><td><code>M</code></td><td><code>Jan</code></td><td>A short textual representation of a month, three letters (Jan through Dec)</td></tr>
+<tr><td><code>n</code></td><td><code>1</code></td><td>Numeric representation of a month, without leading zeros (1 through 12)</td></tr>
+<tr><td><code>t</code></td><td><code>31</code></td><td>Number of days in the given month (28 through 31)</td></tr>
+<tr><td rowspan='3'>Year</td><td><code>o</code></td><td><code>2020</code></td><td>ISO 8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. (Examples: 1999 or 2003)</td></tr>
+<tr><td><code>Y</code></td><td><code>2021</code></td><td>A full numeric representation of a year, at least 4 digits, with - for years BCE. (Examples: -0055, 0787, 1999, 2003, 10191)</td></tr>
+<tr><td><code>y</code></td><td><code>21</code></td><td>A two digit representation of a year (Examples: 99 or 03)</td></tr>
+<tr><td rowspan='8'>Time</td><td><code>a</code></td><td><code>am</code></td><td>Lowercase Ante meridiem and Post meridiem (am or pm)</td></tr>
+<tr><td><code>A</code></td><td><code>AM</code></td><td>Uppercase Ante meridiem and Post meridiem (AM or PM)</td></tr>
+<tr><td><code>g</code></td><td><code>9</code></td><td>12-hour format of an hour without leading zeros (1 through 12)</td></tr>
+<tr><td><code>G</code></td><td><code>9</code></td><td>24-hour format of an hour without leading zeros (0 through 23)</td></tr>
+<tr><td><code>h</code></td><td><code>09</code></td><td>12-hour format of an hour with leading zeros (01 through 12)</td></tr>
+<tr><td><code>H</code></td><td><code>09</code></td><td>24-hour format of an hour with leading zeros (00 through 23)</td></tr>
+<tr><td><code>i</code></td><td><code>00</code></td><td>Minutes with leading zeros (00 to 59)</td></tr>
+<tr><td><code>s</code></td><td><code>00</code></td><td>Seconds with leading zeros (00 through 59)</td></tr>
+<tr><td rowspan='1'>Full Date/Time</td><td><code>U</code></td><td><code>1609491600</code></td><td>Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)</td></tr>
+</tbody></table>
+
+</details>
+
+> **Note**
+> When using SQLite, characters that produces a textual result (for example: `D` -> `Sun`,`F` -> `January`, `l` -> `Sunday`, `M` -> `Jan`), [Carbon's default localization](https://carbon.nesbot.com/docs/#api-localization) will be used to build the SQL query, `\Carbon\Carbon::setLocale(xx)` can be used to change the localization.
+
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
