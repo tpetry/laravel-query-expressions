@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tpetry\QueryExpressions\Operator\Arithmetic;
 
-use Tpetry\QueryExpressions\Operator\VariableLengthOperatorExpression;
-
-class Divide extends VariableLengthOperatorExpression
+class Divide extends ArithmeticExpression
 {
     protected function operator(): string
     {
