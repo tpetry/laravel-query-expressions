@@ -44,3 +44,14 @@ it('can modulo a column and an expression')
     ->toBePgsql('(0 % "val")')
     ->toBeSqlite('(0 % "val")')
     ->toBeSqlsrv('(0 % [val])');
+
+it('can modulo variadic values')
+    ->expect(new Modulo(new Expression(0), 'val1', 'val2', new Expression(1)))
+    ->toBeExecutable(function (Blueprint $table) {
+        $table->integer('val1');
+        $table->integer('val2');
+    })
+    ->toBeMysql('(0 % `val1` % `val2` % 1)')
+    ->toBePgsql('(0 % "val1" % "val2" % 1)')
+    ->toBeSqlite('(0 % "val1" % "val2" % 1)')
+    ->toBeSqlsrv('(0 % [val1] % [val2] % 1)');
