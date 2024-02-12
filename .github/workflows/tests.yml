@@ -74,6 +74,16 @@ jobs:
     uses: ./.github/workflows/tests-mysql.yml
     with:
       version: "8.1"
+  mysql8_2:
+    name: MySQL 8.2
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: "8.2"
+  mysql8_3:
+    name: MySQL 8.3
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: "8.3"
 
   pgsql10:
     name: PostgreSQL 10
