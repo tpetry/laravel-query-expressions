@@ -125,18 +125,33 @@ jobs:
     name: SQLite
     uses: ./.github/workflows/tests-sqlite.yml
 
-  sqlsrv2017:
-    name: Microsoft SQL Server 2017
+  sqlsrv2017_ga:
+    name: Microsoft SQL Server 2017 (GA)
     uses: ./.github/workflows/tests-sqlsrv.yml
     with:
-      version: 2017
-  sqlsrv2019:
-    name: Microsoft SQL Server 2019
+      version: 2017-GA-ubuntu
+  sqlsrv2017_latest:
+    name: Microsoft SQL Server 2017 (Latest)
     uses: ./.github/workflows/tests-sqlsrv.yml
     with:
-      version: 2019
-  sqlsrv2022:
-    name: Microsoft SQL Server 2022
+      version: 2017-latest
+  sqlsrv2019_ga:
+    name: Microsoft SQL Server 2019 (GA)
     uses: ./.github/workflows/tests-sqlsrv.yml
     with:
-      version: 2022
+      version: 2019-GA-ubuntu-16.04
+  sqlsrv2019_latest:
+    name: Microsoft SQL Server 2019 (Latest)
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2019-latest
+  sqlsrv2022_ga:
+    name: Microsoft SQL Server 2022 (GA)
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2022-RTM-GDR1-ubuntu-20.04
+  sqlsrv2022_latest:
+    name: Microsoft SQL Server 2022 (Latest)
+    uses: ./.github/workflows/tests-sqlsrv.yml
+    with:
+      version: 2022-latest
