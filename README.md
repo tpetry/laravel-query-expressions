@@ -144,7 +144,7 @@ new Add(string|Expression $value1, string|Expression $value2, string|Expression 
 new Divide(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
 new Modulo(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
 new Multiply(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
-new Power(string|Expression $value1, string|Expression $value2);
+new Power(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
 new Subtract(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
 
 // UPDATE user_quotas SET credits = credits - 15 WHERE id = 1985
