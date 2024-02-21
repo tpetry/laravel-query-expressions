@@ -129,7 +129,7 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-To use the case-when in a `Select` wrap it in an `Alias`. Example:
+To use the case-when in a `Select` wrap it in an `Alias`:
 
 ```php
 use Tpetry\QueryExpressions\Language\{CaseGroup, CaseRule};
