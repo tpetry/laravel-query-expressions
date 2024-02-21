@@ -129,6 +129,33 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
+To use the case-when in a `Select` wrap it in an `Alias`. Example:
+
+```php
+use Tpetry\QueryExpressions\Language\{CaseGroup, CaseRule};
+use Tpetry\QueryExpressions\Language\Alias;
+use Tpetry\QueryExpressions\Operator\Comparison\{Equal};
+use Tpetry\QueryExpressions\Value\Value;
+use App\Models\User;
+
+User::query()
+  ->select([
+    "id",
+    new Alias(
+      new CaseGroup(
+        when: [
+          new CaseRule(new Value("Admin"), new Equal("role", new Value(3))),
+          new CaseRule(new Value("Editor"), new Equal("role", new Value(2))),
+          new CaseRule(new Value("Viewer"), new Equal("role", new Value(1)))
+        ],
+        else: new Value("Unknown Role")
+      ),
+      "role_name"
+    )
+  ])
+  ->get();
+```
+
 ### Operators
 
 #### Arithmetic Operators
