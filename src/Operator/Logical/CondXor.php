@@ -28,7 +28,7 @@ class CondXor implements ConditionExpression
         $value2 = $this->stringize($grammar, $this->value2);
 
         return match ($this->identify($grammar)) {
-            'mysql' => "({$value1} xor {$value2})",
+            'mariadb', 'mysql' => "({$value1} xor {$value2})",
             'pgsql', 'sqlite', 'sqlsrv' => "(({$value1} and not {$value2}) or (not {$value1} and {$value2}))",
         };
     }

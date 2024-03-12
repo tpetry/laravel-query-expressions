@@ -24,7 +24,7 @@ class Abs implements Expression
         $expression = $this->stringize($grammar, $this->expression);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlite' => "(abs({$expression}))",
+            'mariadb', 'mysql', 'sqlite' => "(abs({$expression}))",
             'pgsql', 'sqlsrv' => "abs({$expression})",
         };
     }

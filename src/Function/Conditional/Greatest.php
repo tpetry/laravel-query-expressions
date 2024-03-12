@@ -20,7 +20,7 @@ class Greatest extends ManyArgumentsExpression
         $expressionsStr = implode(', ', $expressions);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'pgsql' => "greatest({$expressionsStr})",
+            'mariadb', 'mysql', 'pgsql' => "greatest({$expressionsStr})",
             'sqlite' => "max({$expressionsStr})",
             'sqlsrv' => "(select max(n) from (values {$expressionsStr}) as v(n))",
         };

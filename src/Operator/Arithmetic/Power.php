@@ -16,7 +16,7 @@ class Power extends ArithmeticExpression
     public function getValue(Grammar $grammar): string
     {
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlite', 'sqlsrv' => $this->buildPowerFunctionChain($grammar),
+            'mariadb', 'mysql', 'sqlite', 'sqlsrv' => $this->buildPowerFunctionChain($grammar),
             'pgsql' => parent::getValue($grammar),
         };
     }

@@ -28,7 +28,7 @@ class DistinctFrom implements ConditionExpression
 
         // Sqlsrv: IS DISTINCT FROM is not available in version 2017 and 2019
         return match ($this->identify($grammar)) {
-            'mysql' => "(not {$value1} <=> {$value2})",
+            'mariadb', 'mysql' => "(not {$value1} <=> {$value2})",
             'pgsql' => "({$value1} is distinct from {$value2})",
             'sqlite' => "({$value1} is not {$value2})",
             'sqlsrv' => "({$value1} != {$value2} or ({$value1} is not null and {$value2} is null) or ({$value1} is null and {$value2} is not null))",

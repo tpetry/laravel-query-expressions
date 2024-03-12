@@ -24,7 +24,7 @@ class Alias implements Expression
     {
         $expression = $this->stringize($grammar, $this->expression);
         $name = match ($this->identify($grammar)) {
-            'mysql' => '`'.str_replace('`', '``', $this->name).'`',
+            'mariadb', 'mysql' => '`'.str_replace('`', '``', $this->name).'`',
             'pgsql', 'sqlite' => '"'.str_replace('"', '""', $this->name).'"',
             'sqlsrv' => '['.str_replace(']', ']]', $this->name).']',
         };
