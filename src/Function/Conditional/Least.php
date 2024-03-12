@@ -20,7 +20,7 @@ class Least extends ManyArgumentsExpression
         $expressionsStr = implode(', ', $expressions);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'pgsql' => "least({$expressionsStr})",
+            'mariadb', 'mysql', 'pgsql' => "least({$expressionsStr})",
             'sqlite' => "min({$expressionsStr})",
             'sqlsrv' => "(select min(n) from (values {$expressionsStr}) as v(n))",
         };

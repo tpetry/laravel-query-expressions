@@ -26,7 +26,7 @@ class SumFilter implements Expression
         $filter = $this->stringize($grammar, $this->filter);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlsrv' => "sum(case when {$filter} then {$value} else 0 end)",
+            'mariadb', 'mysql', 'sqlsrv' => "sum(case when {$filter} then {$value} else 0 end)",
             'pgsql', 'sqlite' => "sum({$value}) filter (where {$filter})",
         };
     }

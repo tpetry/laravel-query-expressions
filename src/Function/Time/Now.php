@@ -18,7 +18,7 @@ class Now implements Expression
         // PostgreSQL: The CURRENT_TIMESTAMP constant is frozen within transactions.
         // SQLite: The expression needs to be enclosed by parentheses to be used as a default value in create table statements.
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlite' => '(current_timestamp)',
+            'mariadb', 'mysql', 'sqlite' => '(current_timestamp)',
             'pgsql' => 'statement_timestamp()',
             'sqlsrv' => 'current_timestamp',
         };

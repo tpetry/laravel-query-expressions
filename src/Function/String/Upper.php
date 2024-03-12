@@ -24,7 +24,7 @@ class Upper implements Expression
         $expression = $this->stringize($grammar, $this->expression);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlite' => "(upper({$expression}))",
+            'mariadb', 'mysql', 'sqlite' => "(upper({$expression}))",
             'pgsql', 'sqlsrv' => "upper({$expression})",
         };
     }

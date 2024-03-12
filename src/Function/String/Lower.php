@@ -24,7 +24,7 @@ class Lower implements Expression
         $expression = $this->stringize($grammar, $this->expression);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlite' => "(lower({$expression}))",
+            'mariadb', 'mysql', 'sqlite' => "(lower({$expression}))",
             'pgsql', 'sqlsrv' => "lower({$expression})",
         };
     }

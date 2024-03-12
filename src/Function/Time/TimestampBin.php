@@ -40,7 +40,7 @@ class TimestampBin implements Expression
         // MySQL: The expression needs to be enclosed by parentheses to be used as a default value in create table statements.
         // SQLite: The expression needs to be enclosed by parentheses to be used as a default value in create table statements.
         return match ($this->identify($grammar)) {
-            'mysql' => "(from_unixtime(floor((unix_timestamp({$expression})-{$origin})/{$step})*{$step}+{$origin}))",
+            'mariadb', 'mysql' => "(from_unixtime(floor((unix_timestamp({$expression})-{$origin})/{$step})*{$step}+{$origin}))",
             'pgsql' => "to_timestamp(floor((extract(epoch from {$expression})-{$origin})/{$step})*{$step}+{$origin})",
             'sqlite' => "(datetime((strftime('%s',{$expression})-{$origin})/{$step}*{$step}+{$origin},'unixepoch'))",
             'sqlsrv' => "dateadd(s,(datediff(s,'1970-01-01',{$expression})-{$origin})/{$step}*{$step}+{$origin},'1970-01-01')",

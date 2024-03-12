@@ -28,7 +28,7 @@ class ShiftLeft implements Expression
         // Mysql: shifting negative numbers does not work because the result is always a positive 64-bit integer
         // Sqlsrv: shifting is not available in version 2017 and 2019
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlsrv' => "({$value} * power(2, {$times}))",
+            'mariadb', 'mysql', 'sqlsrv' => "({$value} * power(2, {$times}))",
             'pgsql', 'sqlite' => "({$value} << {$times})",
         };
     }

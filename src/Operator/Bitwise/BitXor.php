@@ -26,7 +26,7 @@ class BitXor implements Expression
         $value2 = $this->stringize($grammar, $this->value2);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlsrv' => "({$value1} ^ {$value2})",
+            'mariadb', 'mysql', 'sqlsrv' => "({$value1} ^ {$value2})",
             'pgsql' => "({$value1} # {$value2})",
             'sqlite' => "(({$value1} | {$value2}) - ({$value1} & {$value2}))",
         };

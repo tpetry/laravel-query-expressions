@@ -17,7 +17,7 @@ class Concat extends ManyArgumentsExpression
         $expressions = $this->getExpressions($grammar);
 
         return match ($this->identify($grammar)) {
-            'mysql', 'sqlsrv' => sprintf('(concat(%s))', implode(',', $expressions)),
+            'mariadb', 'mysql', 'sqlsrv' => sprintf('(concat(%s))', implode(',', $expressions)),
             'pgsql', 'sqlite' => sprintf('(%s)', implode('||', $expressions)),
         };
     }

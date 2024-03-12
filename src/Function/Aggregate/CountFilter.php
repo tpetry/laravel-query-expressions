@@ -24,7 +24,7 @@ class CountFilter implements Expression
         $filter = $this->stringize($grammar, $this->filter);
 
         return match ($this->identify($grammar)) {
-            'mysql' => "sum({$filter})",
+            'mariadb', 'mysql' => "sum({$filter})",
             'pgsql', 'sqlite' => "count(*) filter (where {$filter})",
             'sqlsrv' => "sum(case when {$filter} then 1 else 0 end)",
         };
