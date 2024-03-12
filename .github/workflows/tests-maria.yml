@@ -15,13 +15,33 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        version: ["${{ inputs.version }}"]
         php: [8.1, 8.2, 8.3]
-        laravel: [10.*]
+        laravel: [10.*, 11.*]
         stability: [prefer-lowest, prefer-stable]
+        exclude:
+          # Laravel 11.x only supports PHP ^8.2
+          - laravel: 11.*
+            php: 8.1
+          # Laravel 11.x required MariaDB 10.10+
+          - laravel: 11.*
+            version: 10.3
+          - laravel: 11.*
+            version: 10.4
+          - laravel: 11.*
+            version: 10.5
+          - laravel: 11.*
+            version: 10.6
+          - laravel: 11.*
+            version: 10.7
+          - laravel: 11.*
+            version: 10.8
+          - laravel: 11.*
+            version: 10.9
 
     services:
       database:
-        image: mariadb:${{ inputs.version }}
+        image: mariadb:${{ matrix.version }}
         options: --health-cmd="healthcheck.sh --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=3
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -55,6 +75,6 @@ jobs:
       - name: Execute tests
         run: vendor/bin/pest
         env:
-          DB_CONNECTION: mysql
+          DB_CONNECTION: ${{ matrix.laravel == '10.*' && 'mysql' || 'mariadb' }}
           DB_DATABASE: mysql
           DB_USERNAME: root
