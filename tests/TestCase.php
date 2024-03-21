@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Tpetry\QueryExpressions\Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    use DatabaseMigrations;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -15,6 +18,6 @@ class TestCase extends Orchestra
         // The RefreshDatabase trait did not work for some reason. As I don't have to run any migrations, the simplified
         // approach of dropping tables is even better. Less work to do when setting up the test environments results in
         // better performance.
-        $this->getConnection()->getSchemaBuilder()->dropAllTables();
+        // $this->getConnection()->getSchemaBuilder()->dropAllTables();
     }
 }
