@@ -277,7 +277,7 @@ BlogVisit::select([
 
 // SELECT
 //   COUNT(*) FILTER (WHERE (released = 2021)) AS released_2021,
-//   COUNT(*) FILTER (WHERE (released = 2022)) AS released_20212,
+//   COUNT(*) FILTER (WHERE (released = 2022)) AS released_2022,
 //   COUNT(*) FILTER (WHERE (genre = 'Drama')) AS genre_drama,
 //   COUNT(*) FILTER (WHERE (genre = 'Comedy')) AS genre_comedy
 // FROM movies
