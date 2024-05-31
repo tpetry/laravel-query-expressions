@@ -58,6 +58,16 @@ jobs:
     uses: ./.github/workflows/tests-maria.yml
     with:
       version: "11.2"
+  maria11_3:
+    name: MariaDB 11.3
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: "11.3"
+  maria11_4:
+    name: MariaDB 11.2
+    uses: ./.github/workflows/tests-maria.yml
+    with:
+      version: "11.4"
 
   mysql5_7:
     name: MySQL 5.7
@@ -84,6 +94,11 @@ jobs:
     uses: ./.github/workflows/tests-mysql.yml
     with:
       version: "8.3"
+  mysql8_4:
+    name: MySQL 8.4
+    uses: ./.github/workflows/tests-mysql.yml
+    with:
+      version: "8.4"
 
   pgsql10:
     name: PostgreSQL 10
