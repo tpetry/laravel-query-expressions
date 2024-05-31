@@ -98,6 +98,20 @@ User::select([
 > The `Alias` class in isolation is not that usefull because Eloquent can already do this.
 > But it will be used more in the next examples.
 
+#### Cast
+
+```php
+use Illuminate\Contracts\Database\Query\Expression;
+use Tpetry\QueryExpressions\Language\Alias;
+use Tpetry\QueryExpressions\Language\Cast;
+
+new Cast(string|Expression $expression, 'int'|'bigint'|'float'|'double' $type)
+
+Invoice::select([
+    new Alias(new Cast('invoice_number', 'int')),
+])->get();
+```
+
 #### Case-When
 
 ```php
