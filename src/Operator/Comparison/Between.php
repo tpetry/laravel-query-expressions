@@ -18,8 +18,7 @@ class Between implements ConditionExpression
         private readonly string|Expression $min,
         private readonly string|Expression $max,
 
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

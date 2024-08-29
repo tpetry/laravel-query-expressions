@@ -16,8 +16,7 @@ class CountFilter implements Expression
 
     public function __construct(
         private readonly Expression $filter,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

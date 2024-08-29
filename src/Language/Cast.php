@@ -24,8 +24,7 @@ class Cast implements Expression
     public function __construct(
         private readonly string|Expression $expression,
         private readonly string $type,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

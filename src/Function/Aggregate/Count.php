@@ -15,8 +15,7 @@ class Count implements Expression
     public function __construct(
         private readonly string|Expression $value,
         private readonly bool $distinct = false,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

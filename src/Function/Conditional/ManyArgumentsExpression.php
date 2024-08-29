@@ -20,8 +20,7 @@ abstract class ManyArgumentsExpression implements Expression
      */
     public function __construct(
         private readonly array $expressions,
-    ) {
-    }
+    ) {}
 
     /**
      * @return non-empty-array<int, float|int|string>

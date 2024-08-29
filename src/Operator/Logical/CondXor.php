@@ -19,8 +19,7 @@ class CondXor implements ConditionExpression
         private readonly Expression $value1,
         private readonly Expression $value2,
 
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

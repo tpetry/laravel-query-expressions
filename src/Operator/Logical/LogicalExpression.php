@@ -19,8 +19,7 @@ abstract class LogicalExpression implements ConditionExpression
     public function __construct(
         private readonly Expression $value1,
         private readonly Expression $value2,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

@@ -17,8 +17,7 @@ class ShiftLeft implements Expression
     public function __construct(
         private readonly string|Expression $value,
         private readonly string|Expression $times,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

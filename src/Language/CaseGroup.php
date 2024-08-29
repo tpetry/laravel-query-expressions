@@ -20,8 +20,7 @@ class CaseGroup implements Expression
     public function __construct(
         private readonly array $when,
         private readonly string|Expression|null $else = null,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

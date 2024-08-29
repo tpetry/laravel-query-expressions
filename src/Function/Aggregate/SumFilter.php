@@ -17,8 +17,7 @@ class SumFilter implements Expression
     public function __construct(
         private readonly string|Expression $value,
         private readonly Expression $filter,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

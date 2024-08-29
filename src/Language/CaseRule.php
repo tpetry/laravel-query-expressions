@@ -16,8 +16,7 @@ class CaseRule implements Expression
     public function __construct(
         private readonly string|Expression $result,
         private readonly ConditionExpression $condition,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

@@ -11,8 +11,7 @@ class Number implements Expression
 {
     public function __construct(
         private readonly int|float $value,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

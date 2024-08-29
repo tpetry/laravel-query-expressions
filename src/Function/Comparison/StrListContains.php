@@ -18,8 +18,7 @@ class StrListContains implements ConditionExpression
     public function __construct(
         private readonly string|Expression $strList,
         private readonly string|Expression $str,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

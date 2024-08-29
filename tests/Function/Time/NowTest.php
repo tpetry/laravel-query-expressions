@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Tpetry\QueryExpressions\Function\Time\Now;
 
 it('can generate the current time')
-    ->expect(new Now())
+    ->expect(new Now)
     ->toBeExecutable()
     ->toBeMysql('(current_timestamp)')
     ->toBePgsql('statement_timestamp()')

@@ -18,8 +18,7 @@ abstract class OperatorExpression implements Expression
     public function __construct(
         private readonly string|Expression $value1,
         private readonly string|Expression $value2,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {

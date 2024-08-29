@@ -16,8 +16,7 @@ class IsNull implements ConditionExpression
     public function __construct(
         private readonly string|Expression $value,
 
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

@@ -15,8 +15,7 @@ class CondNot implements ConditionExpression
 
     public function __construct(
         private readonly Expression $value,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar)
     {

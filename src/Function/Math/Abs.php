@@ -16,8 +16,7 @@ class Abs implements Expression
 
     public function __construct(
         private readonly string|Expression $expression,
-    ) {
-    }
+    ) {}
 
     public function getValue(Grammar $grammar): string
     {
