@@ -179,7 +179,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Operator\Arithmetic\{
     Add, Divide, Modulo, Multiply, Power, Subtract,
 };
-use Tpetry\QueryExpressions\Operator\Value\Value;
+use Tpetry\QueryExpressions\Value\Value;
 
 new Add(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
 new Divide(string|Expression $value1, string|Expression $value2, string|Expression ...$values);
@@ -208,7 +208,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Operator\Bitwise\{
     BitAnd, BitNot, BitOr, BitXor, ShiftLeft, ShiftRight,
 };
-use Tpetry\QueryExpressions\Operator\Value\Value;
+use Tpetry\QueryExpressions\Value\Value;
 
 new BitAnd(string|Expression $value1, string|Expression $value2);
 new BitNot(string|Expression $value);
@@ -275,7 +275,7 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Tpetry\QueryExpressions\Function\Aggregate\{
     Avg, Count, CountFilter, Max, Min, Sum, SumFilter,
 };
-use Tpetry\QueryExpressions\Operator\Value\Value;
+use Tpetry\QueryExpressions\Value\Value;
 
 new Avg(string|Expression $value);
 new Count(string|Expression $value, bool $distinct = false);
