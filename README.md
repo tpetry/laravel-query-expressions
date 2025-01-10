@@ -24,7 +24,7 @@ User::query()
     ->when(isMySQL(), fn ($query) => $query->selectRaw('coalesce(`user`, `admin`) AS `value`'))
 
 // You can use:
-User::select(new Alias(new Coalesce(['user', 'admin']), 'count'));
+User::select(new Alias(new Coalesce(['user', 'admin']), 'value'));
 ```
 
 And you can also create new powerful queries:
