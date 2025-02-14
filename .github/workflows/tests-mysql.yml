@@ -15,10 +15,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [8.1, 8.2, 8.3]
-        laravel: [10.*, 11.*]
+        php: [8.1, 8.2, 8.3, 8.4]
+        laravel: [10.*, 11.*, 12.*]
         stability: [prefer-lowest, prefer-stable]
         exclude:
+          # Laravel 12.x only supports PHP ^8.2
+          - laravel: 12.*
+            php: 8.1
           # Laravel 11.x only supports PHP ^8.2
           - laravel: 11.*
             php: 8.1
