@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tpetry\QueryExpressions\Language;
 
-use Illuminate\Contracts\Database\Query\Expression;
+use Illuminate\Contracts\Database\Query\ConditionExpression;
 use Illuminate\Database\Grammar;
 use Tpetry\QueryExpressions\Concerns\IdentifiesDriver;
 use Tpetry\QueryExpressions\Concerns\StringizeExpression;
 
-class CaseGroup implements Expression
+class CaseGroup implements ConditionExpression
 {
     use IdentifiesDriver;
     use StringizeExpression;
