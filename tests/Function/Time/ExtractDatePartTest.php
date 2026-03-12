@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
-use Tpetry\QueryExpressions\Function\Time\ExtractYear;
+use Tpetry\QueryExpressions\Function\Time\ExtractDatePart;
+
+test('fails for unimplemented date parts', function () {
+    expect(function () {
+        (new ExtractDatePart('val', 'day'))->getValue(DB::getQueryGrammar());
+    })->toThrow("Invalid date part: 'day'.");
+});
 
 it('can extract the year from a column')
-    ->expect(new ExtractYear('val'))
+    ->expect(new ExtractDatePart('val', 'year'))
     ->toBeExecutable(function (Blueprint $table) {
         $table->date('val');
     })
@@ -17,7 +23,7 @@ it('can extract the year from a column')
     ->toBeSqlsrv('year([val])');
 
 it('can extract the year from an expression')
-    ->expect(new ExtractYear(new Expression('current_date')))
+    ->expect(new ExtractDatePart(new Expression('current_date'), 'year'))
     ->toBeExecutable(function (Blueprint $table) {
         $table->date('val');
     })

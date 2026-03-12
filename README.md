@@ -360,24 +360,13 @@ Schema::table('users', function (Blueprint $table): void {
 
 #### Time
 ```php
-use Tpetry\QueryExpressions\Function\Time\ExtractYear;
+use Tpetry\QueryExpressions\Function\Time\ExtractDatePart;
 use Tpetry\QueryExpressions\Function\Time\Now;
 use Tpetry\QueryExpressions\Function\Time\TimestampBin;
 
-new ExtractYear(string|Expression $column);
+new ExtractDatePart(string|Expression $column, string $part);
 new Now();
 new TimestampBin(string|Expression $expression, DateInterval $step, ?DateTimeInterface $origin = null);
-
-// Extract year for filtering or grouping
-User::select([
-    new Alias(new ExtractYear('created_at'), 'registration_year'),
-    new Count('*'),
-])->groupBy(new ExtractYear('created_at'))->get();
-
-// Use with CountFilter for year-based aggregations
-Movie::select([
-    new Alias(new CountFilter(new Equal(new ExtractYear('released_at'), new Value(2024))), 'released_2024'),
-])->get();
 
 BlogVisit::select([
     'url',
