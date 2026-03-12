@@ -34,7 +34,7 @@ abstract class ArithmeticExpression implements Expression
     }
 
     /**
-     * @return array<int, float|int|string>
+     * @return array<array-key, float|int|string>
      */
     protected function expressions(Grammar $grammar): array
     {
