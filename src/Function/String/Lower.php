@@ -24,7 +24,8 @@ class Lower implements Expression
 
         return match ($this->identify($grammar)) {
             'mariadb', 'mysql', 'sqlite' => "(lower({$expression}))",
-            'pgsql', 'sqlsrv' => "lower({$expression})",
+            'sqlsrv' => "lower({$expression})",
+            'pgsql' => "lower({$expression}::text)",
         };
     }
 }
