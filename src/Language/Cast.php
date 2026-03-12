@@ -45,8 +45,8 @@ class Cast implements Expression
         // float one, but it will be silently downsized to a float when stored in a table.
         return match ($this->type) {
             'bigint', 'int' => "cast({$expression} as signed)",
-            'float', 'double' => "(({$expression})*1.0)",
-            default => throw new RuntimeException("Unknown cast type '{$this->type}'."), // @phpstan-ignore match.unreachable
+            'float', 'double' => "(({$expression})*1.0)", // @phpstan-ignore match.alwaysTrue
+            default => throw new RuntimeException("Unknown cast type '{$this->type}'."),
         };
     }
 
@@ -56,8 +56,8 @@ class Cast implements Expression
             'bigint' => "cast({$expression} as bigint)",
             'float' => "cast({$expression} as real)",
             'double' => "cast({$expression} as double precision)",
-            'int' => "cast({$expression} as int)",
-            default => throw new RuntimeException("Unknown cast type '{$this->type}'."), // @phpstan-ignore match.unreachable
+            'int' => "cast({$expression} as int)", // @phpstan-ignore match.alwaysTrue
+            default => throw new RuntimeException("Unknown cast type '{$this->type}'."),
         };
     }
 
@@ -65,8 +65,8 @@ class Cast implements Expression
     {
         return match ($this->type) {
             'bigint', 'int' => "cast({$expression} as integer)",
-            'float', 'double' => "cast({$expression} as real)",
-            default => throw new RuntimeException("Unknown cast type '{$this->type}'."), // @phpstan-ignore match.unreachable
+            'float', 'double' => "cast({$expression} as real)", // @phpstan-ignore match.alwaysTrue
+            default => throw new RuntimeException("Unknown cast type '{$this->type}'."),
         };
     }
 
@@ -76,8 +76,8 @@ class Cast implements Expression
             'bigint' => "cast({$expression} as bigint)",
             'float' => "cast({$expression} as float(24))",
             'double' => "cast({$expression} as float(53))",
-            'int' => "(({$expression})*1)",
-            default => throw new RuntimeException("Unknown cast type '{$this->type}'."), // @phpstan-ignore match.unreachable
+            'int' => "(({$expression})*1)", // @phpstan-ignore match.alwaysTrue
+            default => throw new RuntimeException("Unknown cast type '{$this->type}'."),
         };
     }
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\Connection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Pest\Expectation;
@@ -13,7 +14,7 @@ uses(
 )->in(__DIR__);
 
 expect()->extend('toBeExecutable', function (?Closure $migration = null, array $options = []): Expectation {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
     $table = null;
@@ -67,10 +68,10 @@ expect()->extend('toBeSqlsrv', function (string $expected): Expectation {
 
 function skipOnMariaBefore(string $version)
 {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
-    if ($connection->getDriverName() !== 'mysql') {
+    if (! in_array($connection->getDriverName(), ['mariadb', 'mysql'])) {
         return;
     }
 
@@ -82,7 +83,7 @@ function skipOnMariaBefore(string $version)
 
 function skipOnMysqlBefore(string $version): void
 {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
     if ($connection->getDriverName() !== 'mysql') {
@@ -97,7 +98,7 @@ function skipOnMysqlBefore(string $version): void
 
 function skipOnPgsqlBefore(string $version): void
 {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
     if ($connection->getDriverName() !== 'pgsql') {
@@ -112,7 +113,7 @@ function skipOnPgsqlBefore(string $version): void
 
 function skipOnSqliteBefore(string $version): void
 {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
     if ($connection->getDriverName() !== 'sqlite') {
@@ -127,7 +128,7 @@ function skipOnSqliteBefore(string $version): void
 
 function skipOnSqlsrvBefore(string $version): void
 {
-    /** @var \Illuminate\Database\Connection $connection */
+    /** @var Connection $connection */
     $connection = DB::connection();
 
     if ($connection->getDriverName() !== 'sqlsrv') {
