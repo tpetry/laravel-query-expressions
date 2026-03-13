@@ -28,7 +28,7 @@ class ExtractDatePart implements Expression
         $column = $this->stringize($grammar, $this->column);
 
         return match ($this->part) {
-            'year' => $this->extractYear($grammar, $column),
+            'year' => $this->extractYear($grammar, $column), // @phpstan-ignore-line match.alwaysTrue
             default => throw new InvalidArgumentException("Invalid date part: '{$this->part}'."),
         };
     }
