@@ -360,9 +360,11 @@ Schema::table('users', function (Blueprint $table): void {
 
 #### Time
 ```php
+use Tpetry\QueryExpressions\Function\Time\ExtractDatePart;
 use Tpetry\QueryExpressions\Function\Time\Now;
 use Tpetry\QueryExpressions\Function\Time\TimestampBin;
 
+new ExtractDatePart(string|Expression $column, string $part);
 new Now();
 new TimestampBin(string|Expression $expression, DateInterval $step, ?DateTimeInterface $origin = null);
 
