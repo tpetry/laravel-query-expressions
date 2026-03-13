@@ -17,7 +17,7 @@ it('can extract the year from a column')
     ->toBeExecutable(function (Blueprint $table) {
         $table->date('val');
     })
-    ->toBeMysql('year(`val`)')
+    ->toBeMysql('(year(`val`))')
     ->toBePgsql('extract(year from "val")::int')
     ->toBeSqlite('cast(strftime(\'%Y\', "val") as integer)')
     ->toBeSqlsrv('year([val])');
@@ -27,7 +27,7 @@ it('can extract the year from an expression')
     ->toBeExecutable(function (Blueprint $table) {
         $table->date('val');
     })
-    ->toBeMysql('year(current_date)')
+    ->toBeMysql('(year(current_date))')
     ->toBePgsql('extract(year from current_date)::int')
     ->toBeSqlite('cast(strftime(\'%Y\', current_date) as integer)')
     ->toBeSqlsrv('year(current_date)');
